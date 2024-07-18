@@ -5,8 +5,15 @@ import Home from "./pages/Home/Home";
 import Cart from "./pages/Cart/Cart";
 import PlaceOreder from "./pages/PlaceOrder/PlaceOreder";
 import Footer from "./components/Footer/Footer";
+import toastr from "toastr";
 import LoginPopUp from "./components/LoginPopup/LoginPopUp";
 
+toastr.options = {
+  positionClass: "toast-top-right",
+  preventDuplicates: true,
+  closeButton: true,
+  timeOut: 5000,
+};
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
   return (
