@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from "../../api/axios";
 import "./LoginPopup.css";
 import toastr from "toastr";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { assets } from "../../assets/assets";
+import { useNavigate } from "react-router-dom";
 
 const USER_REGEX = /^[A-Za-z][A-Za-z0-9-_]{3,23}$/;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -22,6 +22,7 @@ const LoginPopUp = ({ setShowLogin }) => {
   const [userFocus, setUserFocus] = useState(false);
   const [validEmail, setValidEmail] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {
     setValidName(USER_REGEX.test(formData.name));
   }, [formData.name]);
@@ -47,13 +48,14 @@ const LoginPopUp = ({ setShowLogin }) => {
       });
 
       if (response.data.message) {
-        console.log("s and l");
         if (currState === "Sign up") {
           toastr.success("Success, please login");
           setCurrState("Login");
         } else {
           console.log("login");
           toastr.success("Success");
+          setShowLogin(false);
+          navigate("/dashboard");
         }
       }
     } catch (error) {

@@ -3,11 +3,13 @@ import "./Navbar.css";
 import { assets } from "../../assets/assets";
 import { Link } from "react-router-dom";
 import { StoreContext } from "../../Context/StoreContext";
+import { useAuth } from "../../Context/AuthContext";
 
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
-
+  const { isAuthenticated } = useAuth();
   const { getTotal } = useContext(StoreContext);
+  console.log(isAuthenticated);
   return (
     <div className="navbar">
       <Link to={"/"}>
@@ -51,7 +53,13 @@ const Navbar = ({ setShowLogin }) => {
           </Link>
           <div className={getTotal() > 0 ? "dot" : ""}></div>
         </div>
-        <button onClick={() => setShowLogin(true)}>Sign in</button>
+        {isAuthenticated ? (
+          <Link to="/profile">
+            <img src="/path-to-profile-icon.png" alt="Profile" />
+          </Link>
+        ) : (
+          <button onClick={() => setShowLogin(true)}>Sign in</button>
+        )}
       </div>
     </div>
   );
