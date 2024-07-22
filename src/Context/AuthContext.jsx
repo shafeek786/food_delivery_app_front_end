@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
       console.log("check auth 4", isAuthenticated);
 
       try {
+        console.log("check auth 6:");
         const response = await axios.get("/auth/check-auth", {
           withCredentials: true,
         });
@@ -29,6 +30,9 @@ export const AuthProvider = ({ children }) => {
     console.log("check auth 3", isAuthenticated);
   }, []);
 
+  useEffect(() => {
+    console.log(isAuthenticated);
+  });
   return (
     <AuthContext.Provider value={{ isAuthenticated }}>
       {children}

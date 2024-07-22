@@ -4,12 +4,20 @@ import { assets } from "../../assets/assets";
 import { Link } from "react-router-dom";
 import { StoreContext } from "../../Context/StoreContext";
 import { useAuth } from "../../Context/AuthContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import Dropdown from "../Dropdown/Dropdown";
 
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
+  const [showDropdown, setShowDropdown] = useState(false); // State to manage dropdown visibility
   const { isAuthenticated } = useAuth();
   const { getTotal } = useContext(StoreContext);
-  console.log(isAuthenticated);
+
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
+
   return (
     <div className="navbar">
       <Link to={"/"}>
@@ -53,10 +61,16 @@ const Navbar = ({ setShowLogin }) => {
           </Link>
           <div className={getTotal() > 0 ? "dot" : ""}></div>
         </div>
+        {console.log("auth check: ", isAuthenticated)}
         {isAuthenticated ? (
-          <Link to="/profile">
-            <img src="/path-to-profile-icon.png" alt="Profile" />
-          </Link>
+          <div className="profile-container">
+            <FontAwesomeIcon
+              className="pro-icon"
+              icon={faUser}
+              onClick={toggleDropdown}
+            />
+            {showDropdown && <Dropdown />}
+          </div>
         ) : (
           <button onClick={() => setShowLogin(true)}>Sign in</button>
         )}

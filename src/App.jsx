@@ -9,6 +9,7 @@ import toastr from "toastr";
 import LoginPopUp from "./components/LoginPopup/LoginPopUp";
 import Dashboard from "./pages/Dashboard";
 import { AuthProvider } from "./Context/AuthContext";
+import Profile from "./pages/Profile/Profile";
 
 toastr.options = {
   positionClass: "toast-top-right",
@@ -29,6 +30,7 @@ const App = () => {
             <Route path="/cart" element={<Cart />} />
             <Route path="/order" element={<PlaceOreder />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </div>
         <Footer />
