@@ -69,7 +69,7 @@ const Navbar = ({ setShowLogin }) => {
               icon={faUser}
               onClick={toggleDropdown}
             />
-            {showDropdown && <Dropdown />}
+            {showDropdown && <Dropdown setShowDropdown={setShowDropdown} />}
           </div>
         ) : (
           <button onClick={() => setShowLogin(true)}>Sign in</button>

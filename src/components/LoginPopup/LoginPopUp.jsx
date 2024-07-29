@@ -4,6 +4,7 @@ import "./LoginPopup.css";
 import toastr from "toastr";
 import { assets } from "../../assets/assets";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../Context/AuthContext";
 
 const USER_REGEX = /^[A-Za-z][A-Za-z0-9-_]{3,23}$/;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -23,6 +24,8 @@ const LoginPopUp = ({ setShowLogin }) => {
   const [validEmail, setValidEmail] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
   const navigate = useNavigate();
+  const { isLogin,userId } = useAuth();
+
   useEffect(() => {
     setValidName(USER_REGEX.test(formData.name));
   }, [formData.name]);
@@ -55,6 +58,7 @@ const LoginPopUp = ({ setShowLogin }) => {
           console.log("login");
           toastr.success("Success");
           setShowLogin(false);
+          isLogin();
           navigate("/dashboard");
         }
       }

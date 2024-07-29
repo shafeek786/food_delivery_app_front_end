@@ -10,6 +10,8 @@ import LoginPopUp from "./components/LoginPopup/LoginPopUp";
 import Dashboard from "./pages/Dashboard";
 import { AuthProvider } from "./Context/AuthContext";
 import Profile from "./pages/Profile/Profile";
+import Wallet from "./pages/Wallet/Wallet";
+import { WalletProvider } from "./Context/WalletContext";
 
 toastr.options = {
   positionClass: "toast-top-right",
@@ -17,12 +19,13 @@ toastr.options = {
   closeButton: true,
   timeOut: 5000,
 };
+
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
   return (
-    <>
-      <AuthProvider>
-        {showLogin ? <LoginPopUp setShowLogin={setShowLogin} /> : <></>}
+    <AuthProvider>
+      <WalletProvider>
+        {showLogin && <LoginPopUp setShowLogin={setShowLogin} />}
         <div className="app">
           <Navbar setShowLogin={setShowLogin} />
           <Routes>
@@ -31,11 +34,12 @@ const App = () => {
             <Route path="/order" element={<PlaceOreder />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/wallet" element={<Wallet />}></Route>
           </Routes>
         </div>
         <Footer />
-      </AuthProvider>
-    </>
+      </WalletProvider>
+    </AuthProvider>
   );
 };
 
